@@ -1,0 +1,51 @@
+	------
+	Identity Management Services
+	------
+
+Identity Management Services
+
+
+* What is Identity Management Services?
+
+	Identity Management Services provides a set of APIs available to be used by specific ENM security applications requiring programmatic interfaces to user management functionality.
+	The APIs can be categorized into several functional groups as follows:
+
+		Machine-to-machine (M2M) user management
+
+			* Create a M2M user
+
+			* Delete a M2M user
+
+			* Retreive a M2M user
+
+			* Retreive the password of a M2M user
+
+			* Update the password of a M2M user
+
+		Target group management
+
+			* Retreive all target groups
+
+			* Retreive default target group
+
+			* Validate a list of target groups
+
+
+* How to use Identity Management Services
+
+	Identity Management Services consists of one API artifact (jar file) and an implementation artifact (ear file). This enables clients to use a stable API independently of any implementation-specific details or concerns.
+	Clients of this API code ONLY against API artifacts, such that no implementation-related artifacts are required at build time.Implementation can change without notice as long as it does not require change in behavior and change in API.
+
+	A client application or service implementation (consumer of this API) who intends to use the Identity Management Services API has to add the below dependency in their pom.xml
+
+[./images/dependency.png]
+
+	Adding the above dependency includes the API artifact into the client service RPM (static binding), as illustrated above. There should be no dependency on implementation artifacts during compilation of client code.
+
+* How it works at run-time
+
+	Adding the API artifact into the client service RPM would resolves the compile time issues for calling the Identity Management Service APIs, but how are the run time calls to the APIs resolved,
+	how is the implementation of the API invoked at run-time? Service Framework invokes the corresponding implementation of the API remotely, based on the @EService and @EServiceRef annotations.
+	The figure below shows how Service Framework helps to locate the resource (API implementation) using using @EService/@EServiceRef to perform JNDI look-up.
+
+[./images/deployment.png]

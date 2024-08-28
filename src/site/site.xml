@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+	<bannerLeft>
+		<name>[${project.artifactId}] JEE6 Project</name>
+		<href>http://www.ericsson.com/</href>
+	</bannerLeft>
+
+	<bannerRight>
+		<src>images/logo.png</src>
+		<href>http://www.ericsson.com/</href>
+	</bannerRight>
+
+	<poweredBy>
+		<logo name="Ericsson" href="http://www.ericsson.com/" img="images/logo.png" />
+	</poweredBy>
+
+	<body>
+		<menu name="Identity Management Services">
+			<item name="Home" href="/index.html"/>
+			<item name="Project Team" href="/team-list.html"/>
+			<item name="API JavaDocs" href="/identitymgmtservices-api/apidocs/index.html"/>
+			<item name="Impl JavaDocs" href="/apidocs/index.html"/>
+		</menu>
+	</body>
+
+	<skin>
+		<groupId>com.ericsson.nms.pres.client</groupId>
+		<artifactId>EricssonSkin</artifactId>
+		<version>1.0-RELEASE</version>
+	</skin>
+</project>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ericsson.nms.security</groupId>
+		<artifactId>identitymgmtservices</artifactId>
+		<version>1.66.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>identitymgmtservices-testsuite</artifactId>
+	<packaging>pom</packaging>
+	<name>[${project.parent.artifactId}] TestSuite</name>
+
+	<properties>
+		<managed.jboss.home.folder>target/jboss-eap-${version.jboss.as}</managed.jboss.home.folder>
+		<managed.jboss.modules.folder>${managed.jboss.home.folder}/modules/system/layers/base/
+		</managed.jboss.modules.folder>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>activate_testsuite</id>
+			<activation>
+				<property>
+					<name>ts</name>
+				</property>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+	<modules>
+		<module>integration</module>
+	</modules>
+</project>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>identitymgmtservices</artifactId>
+		<groupId>com.ericsson.nms.security</groupId>
+		<version>1.66.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>identitymgmtservices-ejb</artifactId>
+	<packaging>ejb</packaging>
+
+	<name>[${project.parent.artifactId}] EJB module</name>
+
+    <build>
+        <!--
+               DO NOT DELETE RESOURCE FILTERING. FILTERING IS REQUIRED BY SERVICE FRAMEWORK.
+               YOU CAN EXCLUDE FILES YOU DO NOT WANT TO BE FILTERED.
+        -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.maven-ejb-plugin}</version>
+                <configuration>
+                    <ejbVersion>${version.ejb}</ejbVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <execCommands />
+                    <execute-commands />
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-jar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.security.identitymgmt</groupId>
+            <artifactId>generic-identity-exception-handlers-jar</artifactId>
+            <version>${version.generic-identity-mgmt-commons}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.security.identitymgmt</groupId>
+            <artifactId>generic-identity-commons-bundles-jar</artifactId>
+            <version>${version.generic-identity-mgmt-commons}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.security.identitymgmt</groupId>
+            <artifactId>generic-identity-commons-models</artifactId>
+            <version>${version.generic-identity-mgmt-commons}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.nms.security</groupId>
+            <artifactId>identitymgmtmodel-jar</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.forgerock.opendj</groupId>
+            <artifactId>opendj-ldap-sdk</artifactId>
+            <version>${version.opendj}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.security.cryptography</groupId>
+            <artifactId>cryptography-service-api-jar</artifactId>
+            <version>${version.cryptography}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-security-accesscontrol-non-cdi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-recording-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-cluster-service-jgroups</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-instrumentation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.forgerock.opendj</groupId>
+            <artifactId>i18n-core</artifactId>
+            <version>1.4.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

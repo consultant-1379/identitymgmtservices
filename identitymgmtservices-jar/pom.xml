@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>identitymgmtservices</artifactId>
+		<groupId>com.ericsson.nms.security</groupId>
+		<version>1.66.2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>identitymgmtservices-jar</artifactId>
+	<packaging>jar</packaging>
+	<name>[${project.parent.artifactId}] JAR module</name>
+
+	<build>
+		<finalName>${project.parent.artifactId}-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<execCommands />
+					<execute-commands />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ericsson.oss.itpf.security.cryptography</groupId>
+			<artifactId>cryptography-service-api-jar</artifactId>
+			<version>${version.cryptography}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+            <groupId>com.ericsson.oss.services.security</groupId>
+            <artifactId>key-mgmt-library-jar</artifactId>
+            <version>${version.keymgmt}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.security</groupId>
+            <artifactId>key-mgmt-library-api</artifactId>
+            <version>${version.keymgmt}</version>
+        </dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.forgerock.opendj</groupId>
+		    <artifactId>opendj-ldap-sdk</artifactId>
+		    <version>${version.opendj}</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- Dependencies for test -->
+		<dependency>
+		    <groupId>org.forgerock.opendj</groupId>
+		    <artifactId>grizzly-framework</artifactId>
+		    <version>${version.grizzly.framework}</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.forgerock.opendj</groupId>
+		    <artifactId>i18n-core</artifactId>
+		    <version>${version.i18n.core}</version>
+		    <scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

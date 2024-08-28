@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--Please Use the latest version of integration pom.xml or the one you want to reference to -->
+    <parent>
+        <groupId>com.ericsson.nms</groupId>
+        <artifactId>integration</artifactId>
+        <version>15.2.0.40</version>
+    </parent>
+    <groupId>com.ericsson.nms.security</groupId>
+    <artifactId>identitymgmtservices</artifactId>
+    <version>1.66.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>[${project.artifactId}] JEE8 Project</name>
+
+    <prerequisites>
+        <maven>3.5.3</maven>
+    </prerequisites>
+    <properties>
+        <version.cryptography>1.6.1</version.cryptography>
+        <version.keymgmt>1.15.1</version.keymgmt>
+        <version.generic-identity-mgmt-commons>1.10.2</version.generic-identity-mgmt-commons>
+
+        <version.service.framework>4.19.2</version.service.framework>
+        <version.ServiceFrameworkBundle>${version.service.framework}</version.ServiceFrameworkBundle>
+        <version.modeling.bom>21.0.5</version.modeling.bom>
+        <version.identitymgmtmodel-jar>1.2.2</version.identitymgmtmodel-jar>
+
+        <!-- 3PP FOSS -->
+        <version.apache.httpclient>4.5.12</version.apache.httpclient>
+        <!-- overwrite commons-codec version contained in httpclient -->
+        <version.commons-codec>1.12</version.commons-codec>
+
+        <version.jackson-core>2.9.8</version.jackson-core>
+        <version.jackson-annotations>2.9.0</version.jackson-annotations>
+        <version.jackson-databind>2.9.8</version.jackson-databind>
+
+        <!-- JBoss modules your service will automatically add to classpath -->
+        <project.ear.defaultLibBundleDir>lib</project.ear.defaultLibBundleDir>
+        <project.ear.Dependencies>
+            org.jboss.xnio,
+            org.slf4j,
+            com.ericsson.oss.itpf.security.cryptography.api services export meta-inf annotations,
+            com.ericsson.oss.itpf.security.cryptography.impl services export meta-inf annotations,
+            com.fasterxml.jackson.core.jackson-annotations export meta-inf,
+            com.fasterxml.jackson.core.jackson-core export meta-inf,
+            com.fasterxml.jackson.core.jackson-databind export meta-inf,
+            com.ericsson.oss.itpf.modeling.modelservice.api meta-inf
+        </project.ear.Dependencies>
+
+        <!-- Jboss/arquillian -->
+        <version.jboss-javaee-8.0>1.0.4.Final</version.jboss-javaee-8.0>
+
+        <version.jboss.as>7.2.5</version.jboss.as>
+        <version.jboss-eap-javaee8-with-tools>7.2.1.GA</version.jboss-eap-javaee8-with-tools>
+        <version.cryptography-service>1.9.2</version.cryptography-service>
+
+        <!-- Plugin -->
+        <version.maven-ejb-plugin>3.0.1</version.maven-ejb-plugin>
+        <version.maven-ear-plugin>3.0.1</version.maven-ear-plugin>
+        <version.maven-war-plugin>3.1.0</version.maven-war-plugin>
+        <version.ejb>3.2</version.ejb>
+        <version.jee>8</version.jee>
+
+        <!-- Test -->
+        <version.easymock>3.1</version.easymock>
+        <version.mockito>1.10.19</version.mockito>
+        <version.powermock.module>1.6.2</version.powermock.module>
+        <version.powermock.mockito>${version.powermock.module}</version.powermock.mockito>
+        <version.powermock.easymock>${version.powermock.module}</version.powermock.easymock>
+        <version.resteasy-jaxrs>2.3.4.Final</version.resteasy-jaxrs>
+
+        <!-- OpenDj -->
+        <opendj.outputPath>opendj-ldap-toolkit-${version.opendj.ldap.toolkit}</opendj.outputPath>
+        <opendj.outputPrefix>${project.build.directory}/dependencies/opendj-ldap-toolkit-${version.opendj.ldap.toolkit}</opendj.outputPrefix>
+        <version.opendj>2.6.10</version.opendj>
+        <version.opendj.ldap.toolkit>${version.opendj}</version.opendj.ldap.toolkit>
+        <version.opendj.ldap.sdk>${version.opendj}</version.opendj.ldap.sdk>
+        <version.i18n.core>1.4.1</version.i18n.core>
+        <version.grizzly.framework>2.3.11</version.grizzly.framework>
+
+        <!-- Spock/groovy -->
+        <version.groovy>2.4.13</version.groovy>
+        <version.spock>1.0-groovy-2.4</version.spock>
+        <version.cdi-test-support>1.1.75</version.cdi-test-support>
+        <version.cglib-nodep>3.1</version.cglib-nodep>
+        <version.hamcrest-all>1.3</version.hamcrest-all>
+        <version.allure-runner-java-agent>2.13.1</version.allure-runner-java-agent>
+
+        <!-- SonarQube -->
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ../identitymgmtservices-test-jar/target/coverage-reports/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.sdk</groupId>
+                <artifactId>ServiceFrameworkBOM</artifactId>
+                <version>${version.service.framework}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.sdk</groupId>
+                <artifactId>ServiceFrameworkJBossBOM</artifactId>
+                <version>${version.service.framework}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>${version.resteasy-jaxrs}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${version.mockito}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${version.jackson-annotations}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${version.jackson-core}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${version.jackson-databind}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.oss.services.nms.security</groupId>
+                <artifactId>identitymgmtmodel-jar</artifactId>
+                <version>${version.identitymgmtmodel-jar}</version>
+            </dependency>
+            <!-- Versions of dependencies for tests Spock/groovy -->
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-core</artifactId>
+                <version>${version.spock}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${version.groovy}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.cds</groupId>
+                <artifactId>cdi-test-support</artifactId>
+                <version>${version.cdi-test-support}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${version.hamcrest-all}</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>${version.cglib-nodep}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ericsson.cifwk</groupId>
+                <artifactId>allure-runner-java-agent</artifactId>
+                <version>${version.allure-runner-java-agent}</version>
+            </dependency>
+            <!-- 3PP FOSS -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${version.apache.httpclient}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${version.commons-codec}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-8.0</artifactId>
+            <version>${version.jboss-javaee-8.0}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dependency for test -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${version.easymock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${version.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${version.powermock.module}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${version.powermock.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-easymock</artifactId>
+            <version>${version.powermock.easymock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4-rule</artifactId>
+            <version>${version.powermock.module}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Dependencies for tests Spock/groovy -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.cds</groupId>
+            <artifactId>cdi-test-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>identitymgmtservices-BOM</module>
+        <module>identitymgmtservices-api</module>
+        <module>identitymgmtservices-jar</module>
+        <module>identitymgmtservices-ejb</module>
+        <module>identitymgmtservices-war</module>
+        <module>identitymgmtservices-ear</module>
+        <module>identitymgmtservices-test-jar</module>
+        <module>ERICidentitymgmtservices_CXP9030930</module>
+        <module>testsuite</module>
+    </modules>
+
+	<build>
+		<plugins>
+		    <plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<executions>
+                    <execution>
+                        <id>unpack-opendj</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.forgerock.opendj</groupId>
+                                    <artifactId>opendj-ldap-toolkit</artifactId>
+                                    <version>${version.opendj.ldap.toolkit}</version>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}/dependencies/</outputDirectory>
+                                    <includes>${opendj.outputPath}/lib/i18n-core-${version.i18n.core}.jar,${opendj.outputPath}/lib/grizzly-framework-${version.grizzly.framework}.jar,${opendj.outputPath}/lib/opendj-ldap-sdk-${version.opendj.ldap.sdk}.jar</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+			</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<executions>
+                    <execution>
+                        <id>install-i18n-jar-lib</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <groupId>org.forgerock.opendj</groupId>
+                            <artifactId>i18n-core</artifactId>
+                            <version>${version.i18n.core}</version>
+                            <packaging>jar</packaging>
+                            <file>${opendj.outputPrefix}/lib/i18n-core-${version.i18n.core}.jar</file>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-grizzly-jar-lib</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <groupId>org.forgerock.opendj</groupId>
+                            <artifactId>grizzly-framework</artifactId>
+                            <version>${version.grizzly.framework}</version>
+                            <packaging>jar</packaging>
+                            <file>${opendj.outputPrefix}/lib/grizzly-framework-${version.grizzly.framework}.jar</file>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-opendj-ldap-sdk</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <groupId>org.forgerock.opendj</groupId>
+                            <artifactId>opendj-ldap-sdk</artifactId>
+                            <version>${version.opendj.ldap.sdk}</version>
+                            <packaging>jar</packaging>
+                            <file>${opendj.outputPrefix}/lib/opendj-ldap-sdk-${version.opendj.ldap.sdk}.jar</file>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                    </execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+                <executions>
+                    <execution>
+                        <id>prepare-unit-tests</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/coverage-reports/jacoco</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <!-- Plugins for groovy Unit tests -->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <providerSelection>2.0</providerSelection>
+                    <source />
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.gmaven.runtime</groupId>
+                        <artifactId>gmaven-runtime-2.0</artifactId>
+                        <version>1.4</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-all</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${version.groovy}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <threadCount>1</threadCount>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- End plugins for groovy Unit tests -->
+        </plugins>
+	</build>
+  <scm>
+    <tag>identitymgmtservices-1.22.1</tag>
+  </scm>
+</project>

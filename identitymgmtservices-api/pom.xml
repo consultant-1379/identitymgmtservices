@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>identitymgmtservices</artifactId>
+		<groupId>com.ericsson.nms.security</groupId>
+		<version>1.66.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>identitymgmtservices-api</artifactId>
+	<name>[${project.parent.artifactId}] API module</name>
+
+	<properties>
+		<version.javax.validation>1.0.0.GA</version.javax.validation>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+					<execCommands />
+					<execute-commands />
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArguments>
+						<AejbModuleName>${project.parent.artifactId}-ejb</AejbModuleName>
+						<AservicePackageName>${project.parent.artifactId}-ear</AservicePackageName>
+						<AserviceVersion>${project.version}</AserviceVersion>
+					</compilerArguments>
+					<generatedSourcesDirectory>${project.basedir}/target/classes/sdk/</generatedSourcesDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.ericsson.oss.itpf.sdk</groupId>
+			<artifactId>sdk-core-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,154 @@
+# ===============================
+# Attributes and object classes
+# ===============================
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( 1.3.6.1.4.1.193.207.373 NAME 'ericssonUserAuthorizationScope' DESC 'Ericsson User Authorization Scope' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5SubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+attributeTypes: ( 1.3.6.1.4.1.193.207.372 NAME 'ericssonUserAuthenticationScope' DESC 'Ericsson User Authentication Scope' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+dn: cn=schema
+changetype: modify
+add: objectClasses
+objectClasses: ( 1.3.6.1.4.1.193.207.374 NAME 'ericssonUserAuthentication' SUP top AUXILIARY MAY ( ericssonUserAuthenticationScope ))
+objectClasses: ( 1.3.6.1.4.1.193.207.376 NAME 'ericssonUserAuthorization' SUP top AUXILIARY MAY ( ericssonUserAuthorizationScope ))
+
+# ===============================
+# Additional containers
+# ===============================
+dn: ou=Profiles,dc=vts,dc=com
+changetype: add
+objectClass: organizationalUnit
+objectClass: top
+description: This is a legacy container for all the Proxy Agent Accounts
+ou: Profiles
+
+dn: ou=com,dc=vts,dc=com
+changetype: add
+objectClass: organizationalUnit
+objectClass: top
+description: This is a container for all the Proxy Agent Accounts
+ou: com
+
+dn: ou=proxyagent,ou=com,dc=vts,dc=com
+changetype: add
+objectClass: organizationalUnit
+objectClass: top
+description: This is a container for all the Proxy Agent Accounts
+ou: proxyagent
+
+# ===============================
+# Data for COM-AA
+# ===============================
+# com_user1 - user with specific TGs assigned
+#--------------------------------------------
+dn: uid=com_user1,ou=People,dc=vts,dc=com
+changetype: add
+userPassword: TestPassw0rd
+userType: enmUser
+mail: com_user1@ericsson.com
+givenName: com_user1
+objectClass: userTypeOC
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: posixAccount
+objectClass: ericssonUserAuthentication
+objectClass: ericssonUserAuthorization
+uid: com_user1
+cn: com_user1
+sn: com_user1
+ericssonUserAuthorizationScope: RadioNode2:expert
+ericssonUserAuthorizationScope: RadioNode1:SystemAdministrator
+ericssonUserAuthenticationScope: RadioNode1
+ericssonUserAuthenticationScope: RadioNode2
+loginShell: /sbin/nologin
+homeDirectory: /dev/null
+uidNumber: 4321
+gidNumber: 609
+
+dn: uid=com_user1,ou=People,dc=vts,dc=com
+changetype: modify
+replace: pwdReset
+pwdReset: false
+
+# com_user2 - user with only ALL TG assigned
+#-------------------------------------------
+dn: uid=com_user2,ou=People,dc=vts,dc=com
+changetype: add
+userPassword: TestPassw0rd
+userType: enmUser
+mail: com_user2@ericsson.com
+givenName: com_user2
+objectClass: userTypeOC
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+objectClass: posixAccount
+objectClass: ericssonUserAuthentication
+objectClass: ericssonUserAuthorization
+uid: com_user2
+cn: com_user2
+sn: com_user2
+ericssonUserAuthorizationScope: *:expert
+ericssonUserAuthorizationScope: RadioNode1:SystemAdministrator
+ericssonUserAuthenticationScope: *
+loginShell: /sbin/nologin
+homeDirectory: /dev/null
+uidNumber: 1234
+gidNumber: 609
+
+dn: uid=com_user2,ou=People,dc=vts,dc=com
+changetype: modify
+replace: pwdReset
+pwdReset: false
+
+dn: cn=ERBS1,ou=Profiles,dc=vts,dc=com
+changetype: add
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetorgperson
+objectClass: top
+cn: ERBS1
+sn: ERBS1
+userPassword: TestPassw0rd
+pwdReset: false
+
+dn: cn=ERBS1,ou=Profiles,dc=vts,dc=com
+changetype: modify
+replace: pwdReset
+pwdReset: false
+
+dn: cn=ERBS1,ou=proxyagent,ou=com,dc=vts,dc=com
+changetype: add
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetorgperson
+objectClass: top
+cn: ERBS1
+sn: ERBS1
+userPassword: TestPassw0rd
+pwdReset: false
+
+dn: cn=ERBS1,ou=proxyagent,ou=com,dc=vts,dc=com
+changetype: modify
+replace: pwdReset
+pwdReset: false
+
+dn: cn=ERBS2,ou=Profiles,dc=vts,dc=com
+changetype: add
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetorgperson
+objectClass: top
+cn: ERBS2
+sn: ERBS2
+userPassword: TestPassw0rd
+pwdReset: false
+
+dn: cn=ERBS2,ou=Profiles,dc=vts,dc=com
+changetype: modify
+replace: pwdReset
+pwdReset: false
